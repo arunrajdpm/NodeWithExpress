@@ -1,0 +1,38 @@
+{
+  "name": "nodetrial",
+  "description": "",
+  "main": "app.js",
+  "authors": [
+    "Arun <arun.govindaraj@zettastack.com>"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "font-awesome": "^4.7.0"
+  },
+     "overrides":{
+      "bootstrap":{
+         "main":[
+            "less/bootstrap.less",
+            "dist/css/bootstrap.css",
+            "dist/js/bootstrap.js"
+         ]
+      },
+      "font-awesome":{
+         "main":[
+            "less/font-awesome.less",
+            "css/font-awesome.css",
+            "scss/font-awesome.scss"
+         ]
+      }
+      
+   }
+}
