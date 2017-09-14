@@ -14,7 +14,7 @@ gulp.task('style', function(){
 			.pipe(jscs());
 });
 
-gulp.task('inject', function(){
+gulp.task('inject', function(){    
 	var wiredep = require('wiredep').stream;
     var inject  = require('gulp-inject');
     
@@ -33,7 +33,7 @@ gulp.task('inject', function(){
 			
 	};
 	
-	return gulp.src('./src/views/*.html')
+	return gulp.src('./src/views/*.jade')
 			   .pipe(wiredep(options))
 			   .pipe(inject(injectSrc, injecOptions))
 			   .pipe(gulp.dest('./src/views/'));
