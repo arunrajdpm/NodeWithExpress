@@ -16,7 +16,13 @@ var nav = [{
 }];
 
 var booksRouter = require('./src/routes/bookRoutes')(nav);
+var adminRouter = require('./src/routes/adminRoutes')(nav);
+
+
 app.use('/Books', booksRouter);
+app.use('/Admin', adminRouter);
+
+
 app.use(express.static('public'));
 app.set('views',('./src/views'));
 

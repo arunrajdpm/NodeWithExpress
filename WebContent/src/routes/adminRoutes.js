@@ -1,9 +1,9 @@
 var express = require("express");
  
-var booksRouter = express.Router();
- 
-var router = function(nav){
- var books= [{
+var adminRouter = express.Router();
+var mongodb = require("mongodb").MongoClient;
+
+var books= [{
  	Title : "Title of book 1",
  	genere : "genere of book1",
  	author : "author1",
@@ -40,36 +40,39 @@ var router = function(nav){
  	read : false
  		
  }];
+ 
+var router = function(nav){
 
- booksRouter.route('/')
+adminRouter.route('/addBooks')
    .get(function(req , res){
 	   
-//	   var url = "mongodb://localhost:27017/libraryApp"; 
+//	 var url = "mongodb://localhost:27017/libraryApp"; 
+//	 
+//	 mongodb.connect(url, function(err, db){
+//		
+//		 var collection = db.collection('books');
 //		 
-//		 mongodb.connect(url, function(err, db){
-//			 
-//			 var collection = db.collection('books');
-//			 
-//			 collectoin.find({}).toArray(
-//				function(err, results ){
-//					console.log(results);
-//				}	 
-//			 );
-//			 
+//		 collection.insertMany(books, function(err, results){
+//			res.send(results) ;
+//			db.close();
 //		 });
+		 
+		
+	 });
 	   
- 	  res.render("books", {title : "Books", nav:nav,
- 		books  : books });
-   });
+	 
+	   
+ 	 
 
- booksRouter.route('/:id')
- .get(function(req , res){
-	  var id =  req.params.id;
-	  
-	  res.render("book", {title : "Books", nav:nav,
-		book  : books[id] });
- });
+ 	 
+	   
+  
+
+ return adminRouter;
+ };
  
- return booksRouter;
-};
- module.exports = router;
+ 
+
+
+
+module.exports = router;
