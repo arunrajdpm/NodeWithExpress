@@ -4,7 +4,7 @@ var adminRouter = express.Router();
 var mongodb = require("mongodb").MongoClient;
 
 var books= [{
- 	Title : "Title of book 1",
+ 	Title : "Title of book 1 ",
  	genere : "genere of book1",
  	author : "author1",
  	read : false
@@ -34,7 +34,7 @@ var books= [{
  	read : false
  		
  },{
- 	Title : "Title of book 6",
+ 	Title : "Title  arun",
  	genere : "genere of book6",
  	author : "author6",
  	read : false
@@ -46,17 +46,17 @@ var router = function(nav){
 adminRouter.route('/addBooks')
    .get(function(req , res){
 	   
-//	 var url = "mongodb://localhost:27017/libraryApp"; 
-//	 
-//	 mongodb.connect(url, function(err, db){
-//		
-//		 var collection = db.collection('books');
-//		 
-//		 collection.insertMany(books, function(err, results){
-//			res.send(results) ;
-//			db.close();
-//		 });
+	 var url = "mongodb://localhost:27017/libraryApp"; 
+	 	 
+	 mongodb.connect(url, function(err, db){
+		
+		 var collection = db.collection('books');
 		 
+		 collection.insertMany(books, function(err, results){
+			res.send(results) ;
+			db.close();
+		 });
+		});
 		
 	 });
 	   

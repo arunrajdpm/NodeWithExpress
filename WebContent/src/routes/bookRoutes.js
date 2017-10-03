@@ -1,73 +1,65 @@
 var express = require("express");
- 
+var mongodb = require("mongodb").MongoClient;
+var objectId = require("mongodb").ObjectID;
+
 var booksRouter = express.Router();
  
 var router = function(nav){
- var books= [{
- 	Title : "Title of book 1",
- 	genere : "genere of book1",
- 	author : "author1",
- 	read : false
- 		
- },{
- 	Title : "Title of book 2",
- 	genere : "genere of book2",
- 	author : "author2",
- 	read : false
- 		
- },{
- 	Title : "Title of book 3",
- 	genere : "genere of book3",
- 	author : "author3",
- 	read : false
- 		
- },{
- 	Title : "Title of book 4",
- 	genere : "genere of book4",
- 	author : "author4",
- 	read : false
- 		
- },{
- 	Title : "Title of book 5",
- 	genere : "genere of book5",
- 	author : "author5",
- 	read : false
- 		
- },{
- 	Title : "Title of book 6",
- 	genere : "genere of book6",
- 	author : "author6",
- 	read : false
- 		
- }];
+  
+	booksRouter.use((function(req, res, next){
+		if(!req.user){
+			res.redirect('/'); 
+		}
+		next();
+	}));
 
  booksRouter.route('/')
    .get(function(req , res){
 	   
-//	   var url = "mongodb://localhost:27017/libraryApp"; 
-//		 
-//		 mongodb.connect(url, function(err, db){
-//			 
-//			 var collection = db.collection('books');
-//			 
-//			 collectoin.find({}).toArray(
-//				function(err, results ){
-//					console.log(results);
-//				}	 
-//			 );
-//			 
-//		 });
+	   var url = "mongodb://localhost:27017/libraryApp"; 
+		 
+		 mongodb.connect(url, function(err, db){
+			 
+			 var collection = db.collection('books');
+			 
+			 collection.find({}).toArray(
+				function(err, results ){
+					res.render("books", {title : "Books", nav:nav,
+					books  : results });
+				}	 
+			 );
+			 
+		 });
 	   
- 	  res.render("books", {title : "Books", nav:nav,
- 		books  : books });
+ 	 
    });
 
  booksRouter.route('/:id')
  .get(function(req , res){
-	  var id =  req.params.id;
+	
+	var id = new objectId(req.params.id);
+	console.log("inside router" + id);
+	  var url = "mongodb://localhost:27017/libraryApp"; 
 	  
-	  res.render("book", {title : "Books", nav:nav,
-		book  : books[id] });
+	  mongodb.connect(url, function(err, db){
+		  
+		  var collection = db.collection('books');
+		  
+		  collection.findOne({_id:id},  
+			 function(err, results ){
+				 console.log(results);
+				  res.render("book", {title : "Books", nav:nav,
+				  book : results });
+			 });	 
+		 
+		  
+	  });
+
+
+
+	  
+	//   res.render("book", {title : "Books", nav:nav,
+	// 	book  : books[id] });
  });
  
  return booksRouter;
